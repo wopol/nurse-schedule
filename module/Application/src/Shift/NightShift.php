@@ -21,4 +21,9 @@ class NightShift extends Shift
     {
         // TODO: Implement getStopTime() method.
     }
+
+    function getType()
+    {
+        return 'Night';
+    }
 }

@@ -21,4 +21,9 @@ class LateShift extends Shift
     {
         return "07:00:00";
     }
+    function getType()
+    {
+        return 'Late';
+    }
+
 }

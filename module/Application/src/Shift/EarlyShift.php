@@ -23,4 +23,9 @@ class EarlyShift extends Shift
     {
         return "16:00:00";
     }
+
+    function getType()
+    {
+        return 'Early';
+    }
 }

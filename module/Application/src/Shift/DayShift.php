@@ -21,4 +21,9 @@ class DayShift extends Shift
     {
         return "17:00:00";
     }
+
+    function getType()
+    {
+        return 'Day';
+    }
 }

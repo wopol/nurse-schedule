@@ -107,4 +107,14 @@ class BaseController
 		}
 	}
 
+	/**
+	 * Redirect to the given url.
+	 * @param $url
+	 * @param $statusCode
+	 */
+	public function redirect($url, $statusCode = null)
+	{
+		$this->response->redirect($url, $statusCode);
+	}
+
 }

@@ -6,6 +6,12 @@ use Application\Day\WeekDay;
 use Application\Day\WorkDay;
 use Iterator;
 
+
+/**
+ * Class Period (Simple iterator)
+ * @author Wojciech Polus
+ * @package Application
+ */
 class Period implements Iterator
 {
 
@@ -24,30 +30,29 @@ class Period implements Iterator
 
     private function prepareDays($count)
     {
+        $counter = 1;
         for ($i = 1; $i <= $count; $i++) {
-            if ($i % 6 == 0 || $i % 7 ==0) {
+            if ($counter == 6 || $counter == 7) {
+                if ($counter == 7) {
+                    $counter = 0;
+                }
                 $this->days[] = new WeekDay($i);
             } else {
                 $this->days[] = new WorkDay($i);
             }
+            $counter++;
         }
     }
 
+    /**
+     * Returns day on the specified number
+     * @param $dayNumber
+     * @return Day
+     */
     public function get($dayNumber) {
-        if (isset($this->days[$dayNumber])) {
-            return $this->days[$dayNumber];
+        if (isset($this->days[$dayNumber - 1])) {
+            return $this->days[$dayNumber - 1];
         }
-    }
-
-    public function getNextDay()
-    {
-        $day = $this->days[$this->current];
-
-        if ($day->shiftsCompleted()) {
-            $this->current++;
-        }
-
-        return $this->days[$this->current];
     }
 
     /**

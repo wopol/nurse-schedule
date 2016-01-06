@@ -21,50 +21,98 @@ class Nurse
     /**
      * @var int
      */
-    private $houersInContract;
+    private $hoursInContract;
 
-    private $usedHouers;
+    /**
+     * Used hours in period
+     * @var int
+     */
+    private $usedHours;
 
-    private $totalHouers;
+    /**
+     * Max hours
+     * @var int
+     */
+    private $totalHours;
+
 
     public $nightShift = 0;
 
     /**
      * @var Shift[]
      */
-    private $shifts = array();
+    public $shifts = array();
 
 
-    public function __construct($houersInContract)
+    public function __construct($hoursInContract)
     {
         $this->id = self::$seq++;
-        $this->houersInContract = $houersInContract;
-        $this->totalHouers = $houersInContract *5;
+        $this->hoursInContract = $hoursInContract;
+        $this->totalHours = $hoursInContract *5;
     }
 
-    public function usedAllhouers()
+    /**
+     * Checks if nurse used all available hours in period
+     * @return bool
+     */
+    public function usedAllHours()
     {
-        if ($this->usedHouers + 4 >= $this->totalHouers) {
+        if ($this->usedHours + 4 >= $this->totalHours) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * Returns nurse id
+     * @return int
+     */
     public function id()
     {
         return $this->id;
     }
 
+    /**
+     * Attach shift to nurse
+     * @param Shift $shift
+     */
     public function attachShift(Shift $shift)
     {
         if ($shift instanceof NightShift) {
             $this->nightShift++;
         }
+
         $this->shifts[] = $shift;
-        $this->usedHouers += 8;
+        $this->usedHours += 8;
     }
 
+
+    /**
+     * Returns all nurse shifts
+     * @return Shift[]
+     */
+    public function getShifts()
+    {
+        return $this->shifts;
+    }
+
+
+    /**
+     * Returns last attached shift
+     * @return Shift
+     */
+    public function getLastShift()
+    {
+        if (!empty($this->shifts)) {
+            return end($this->shifts);
+        }
+    }
+
+    /**
+     * Temporary method to create nurse array
+     * @return Nurse[]
+     */
     public static function getNurses()
     {
         $nurses = array();
@@ -80,14 +128,6 @@ class Nurse
         }
 
         return $nurses;
-    }
-
-    public function getLastShift()
-    {
-        $count = count($this->shifts);
-        if ($count) {
-            return $this->shifts[$count - 1];
-        }
     }
 
 }
