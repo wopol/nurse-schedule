@@ -1,0 +1,14 @@
+{
+  "name": "nurse-schedule",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Core\\": "system/",
+      "Application\\": "module/Application/src/"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "smarty/smarty": "~3.1"
+  }
+}

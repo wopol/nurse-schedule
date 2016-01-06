@@ -1,0 +1,581 @@
+/* reset style */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+    display: block;
+}
+h3 {
+    padding-bottom: 5px;
+}
+body {
+    line-height: 1;
+    background: #ffffff;
+    font-size: 0.9em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+html {
+    height: 100%;
+}
+a {
+    text-decoration: none !important;
+}
+a:hover {
+    color: #DB5656 !important;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+#login-img {
+    background: url("/res/img/office.jpg") no-repeat center top;
+    height: 500px;
+    position: relative;
+}
+
+/* header style */
+#header {
+    background-color: #22262E;
+    color: #fff;
+    height: 45px;
+    width: 100%;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+}
+.header-icon {
+    font-size: 1.3em;
+}
+.header-link {
+    height: 45px;
+    line-height: 45px;
+    display: block;
+    text-align: center;
+    float: left;
+    border-right: 1px solid #EAEBED;
+}
+.header-link:hover {
+    background-color: #DB5656;
+    color: #EAEBED;
+}
+#menu {
+    height: 100%;
+    width: 40px;
+    position: fixed;
+    top: 45px;
+    left: 0;
+    background-color: #EAEBED;
+    box-shadow: 0 0 2px #8e8e8e;
+    overflow: hidden;
+}
+#menu-click {
+    width: 40px;
+}
+.avatar {
+    float: right;
+}
+.avatar img{
+    float: right;
+}
+.avatar .name{
+    line-height: 45px;
+    margin: 0 10px 0 10px;
+}
+.avatar:hover {
+    background-color: #DB5656;
+}
+/* header style end */
+
+/* content style */
+#content {
+    padding-top: 45px;
+    padding-bottom: 45px;
+    margin-bottom: -45px;
+    min-height: 100%;
+}
+.content-box {
+    margin-left: 50px;
+
+}
+.content-active{
+    margin-left: 200px;
+    padding: 20px;
+}
+.item-menu {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    text-align: left;
+}
+.item-menu span {
+    margin-left: 11px;
+    font-size: 1.3em;
+    line-height: 30px;
+}
+.text-item {
+    margin-left: 10px;
+    display: none;
+    font-size: 1em !important;
+    line-height: 30px;
+}
+.item-menu a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+}
+.item-menu a:hover > span {
+    color: #EAEBED;
+}
+.item-menu > a:hover {
+    background: #DB5656;
+}
+/* end content style */
+
+/* footer style */
+footer {
+    box-shadow: 0 0 2px #8e8e8e;
+    width: 100%;
+    background-color: #EAEBED;
+    z-index: 1;
+    height: 45px;
+    font-size: 0.7em;
+    text-align: right;
+    line-height: 65px;
+}
+/* footer style end */
+
+/** User profile settings */
+th {
+    font-weight: bold;
+}
+.list {
+    padding: 5px;
+    width: 100%;
+}
+.list>thead {
+    border-bottom: 1px solid #EAEBED;
+    font-weight: bold;
+}
+
+.list>tbody td {
+    vertical-align: middle;
+    padding: 5px;
+}
+
+table.list > tbody > tr:nth-child(odd) {
+    background-color: #EAEBED;
+}
+.avatar-lg {
+    width: 250px;
+    text-align: center;
+    border-radius: 4px;
+}
+.avatar-lg img {
+    max-width: 250px;
+}
+.avatar-sm {
+    width: 35px;
+    border-radius: 3px;
+}
+#notification {
+    position: absolute;
+    right: 1%;
+    margin-top: 10px;
+    z-index: 999;
+}
+.displayNone {
+    display: none;
+}
+#myTab {
+    float: left;
+}
+.verticalList {
+    padding: 5px;
+    border-left: 1px solid #EAEBED;
+    border-bottom: 1px solid #EAEBED;
+    border-right: 1px solid #EAEBED;
+}
+.verticalList th {
+    border-right: 1px solid #ffffff;
+    background: #F3F3F3;
+    padding: 8px;
+    font-weight: bold;
+}
+.verticalList td {
+    padding: 5px;
+}
+.action-icon {
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+}
+
+/* bootstrap style */
+
+.panel-heading {
+    padding: 0 !important;
+}
+
+.panel-heading > a {
+    padding: 10px !important;
+    display: block !important;
+}
+
+.alert {
+    padding-left: 25px !important;
+    margin-bottom: 5px !important;
+}
+.alert ul {
+    margin-right: 15px;
+}
+.alert ul li {
+    padding: 0;
+    margin: 0;
+    list-style: inside;
+}
+.modal {
+    width: 75%;
+    margin: 0 auto 0 auto;
+    background: rgb(255, 255, 255);
+    top: 4% !important;
+    bottom: 4% !important;
+    overflow: auto !important;
+}
+.row {
+    width: 99%;
+    margin: 0 !important;
+    pading: 0 !important;
+}
+.nav-tabs {
+    border: none !important;
+}
+.nav-tabs>li {
+    height: 45px;
+    line-height: 45px;
+    display: block;
+}
+.nav-tabs>li>a {
+    margin: 0px !important;
+    height: 45px;
+    line-height: 45px;
+    display: block;
+    color: #fff !important;
+    border:  none !important;
+    border-radius: 0px !important;
+}
+.nav-tabs>li>a:hover {
+    background-color: #DB5656 !important;
+    color: #fff; !important;
+}
+.nav-tabs>li.active>a {
+    color: #fff !important;
+    border:  none !important;
+    background-color: #DB5656 !important;
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: #DB5656 !important;
+}
+.content {
+    padding: 10px;
+}
+/* end bootstrap style */
+
+/* dojo style */
+.modal-backdrop {
+    z-index: 998 !important;
+}
+.modal {
+    z-index: 999 !important;
+}
+.dijitTextBoxHover {
+    background: #fff !important;
+}
+
+.dijitValidationTextBoxHover {
+    background: #fff !important;
+    background-color: #fff !important;
+}
+
+.dijitTextBoxIncompleteHover, .dijitValidationTextBoxIncompleteHover, .dijitIncompleteHover {
+    background: #fff !important;
+    background-color: #fff !important;
+}
+
+.dijitTextBoxFocused, .dijitValidationTextBoxFocused {
+    border-color: rgba(82,168,236,.8) !important;
+    outline: 0 !important;
+    outline: thin dotted \9 !important;
+    -moz-box-shadow: 0 0 8px rgba(82,168,236,.6) !important;
+    box-shadow: 0 0 8px rgba(82,168,236,.6) !important;
+}
+
+.dijitArrowButton {
+    background: none !important;
+    width: 25px !important;
+}
+.active {
+    border: none !important;
+}
+.claro .dijitButton .dijitButtonNode, .claro .dijitDropDownButton .dijitButtonNode, .claro .dijitComboButton .dijitButtonNode, .claro .dijitToggleButton .dijitButtonNode {
+    color: #fff !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+}
+
+.claro .dijitDialog {
+    border: none !important;
+    width: 75% !important;
+    margin: 0 auto 0 auto !important;
+    background: rgb(255, 255, 255) !important;
+    top: 4% !important;
+    bottom: 4% !important;
+    overflow: auto !important;
+}
+
+.claro .dijitDialogPaneContent {
+    border: none !important;
+}
+
+.claro .dijitDialogTitleBar {
+    background: #fff !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+.claro .dijitDialogUnderlay {
+    background-color: #000 !important;
+}
+
+.dijitDialogTitle {
+    font-size: 1.7em !important;
+}
+
+
+
+.box .header-box {
+
+}
+
+.box {
+    border: 1px solid #EAEBED;
+    border-radius: 5px;
+}
+
+.panel {
+    border-radius: 1px;
+    background: #EEEEEE !important;
+}
+
+.owner-post .post-header{
+    background: #337AB7;
+}
+
+.other-post .post-header {
+    background: #4a8a32;
+}
+
+.post-header {
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+}
+
+.post {
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #EAEBED;
+    box-shadow: 1px 3px 1px #eee;
+    background: #fff;
+}
+
+.post-header * {
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.post-date {
+    float: right;
+    margin-right: 10px;
+}
+
+.post-body {
+    padding: 10px;
+}
+
+#fileUploadedList {
+    font-size: 0.9em;
+}
+.ticket-tabs {
+    border-top: 3px solid #fff;
+    border-bottom: 1px solid #ccc;
+    background: #e3e3e3;
+    display: block;
+}
+
+.ticket-tabs > li{
+    float: left;
+}
+
+.ticket-tabs > li > a{
+    color: #000;
+}
+
+.product-tab {
+    display: block;
+}
+
+.product-tab > li{
+    float: left;
+}
+
+.ticket-tabs > li > a{
+    color: #000;
+}
+
+.info-tab {
+
+}
+.info-tab th {
+    padding: 2px;
+    margin: 1px;
+    font-weight: bold;
+}
+
+.info-tab td {
+    padding: 2px;
+    margin: 1px;
+}
+
+.panel-header {
+    border-bottom: 2px solid #000;
+    margin-bottom: 10px;
+}
+
+#productTab {
+    background: #EAEBED;
+}
+
+.widget {
+    box-shadow: 0 1px 2px #8e8e8e;
+}
+
+.widget .content {
+    padding: 10px;
+}
+
+.widget .header {
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+    background: #F3F3F3;
+    color: #000;
+}
+
+.pagination {
+    margin: 10px 0 !important;
+}
+
+.align-right {
+    text-align: right !important;
+}
+
+
+
+* { outline: none; }
+
+div.user-name {
+   padding: 4px 0px 0px 5px;
+}
+
+.dijitProgressBar.dijitProgressBarEmpty {
+    margin-bottom: 10px;
+}
+
+ul.funel-status-bar {
+    list-style: none;
+    margin: 10px 0 30px 0 ;
+    padding: 0;
+}
+
+ul.funel-status-bar li {
+    display: block;
+    position: relative;
+    float: left;
+    font-size: 10px;
+    padding-bottom: 10px;
+}
+
+ul.funel-status-bar li a,
+ul.funel-status-bar li span{
+    display: block;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.currentStatus {
+    border-bottom: 4px solid #4A8A32;
+    font-weight: bold;
+    color: #4A8A32;
+}
+
+.status-current {
+    color: #4A8A32;
+}
+
+.status-available {
+    color: #000000;
+    font-weight: bold;
+}
+
+.status-disabled {
+    color: #898989;
+}
+
+
+.status {
+    border-bottom: 4px solid #777;
+}
+
+.status-dot {
+    position: absolute;
+    bottom: 7px;
+    left: 45%;
+    color: #777;
+}
