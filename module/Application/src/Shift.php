@@ -2,6 +2,9 @@
 
 namespace Application;
 
+use Application\Shift\DayShift;
+use Application\Shift\EarlyShift;
+use Application\Shift\LateShift;
 use Application\Shift\NightShift;
 
 /**
@@ -80,6 +83,11 @@ abstract class Shift
         }
     }
 
+    public function getNurses()
+    {
+        return $this->nurses;
+    }
+
     /**
      * Checks constraint:
      * "Following a series of at least 2 consecutive night shifts a 42 hours rest is required."
@@ -88,29 +96,25 @@ abstract class Shift
      */
     public function mayByNext(Shift $shift)
     {
-        if ($this instanceof NightShift && !$shift instanceof NightShift) {
-            return false;
-        } else if ($this instanceof NightShift && !$shift instanceof NightShift) {
+
+        if ($this instanceof NightShift && $shift instanceof NightShift) {
             return true;
         }
 
-        $start = new \DateTime($shift->getStartTime());
-        $stop = new \DateTime("00:00:00");
 
-        $diff = $start->diff($stop);
-
-        $thisStart = $start = new \DateTime($shift->getStopTime());
-        $thisStop = new \DateTime("24:00:00");
-
-        $thisDiff = $thisStart->diff($thisStop);
-        $h = $diff->h + $thisDiff->h;
-
-        if ($h >= 11) {
+        if ($this instanceof EarlyShift) {
             return true;
-        } else {
-            return false;
         }
 
+        if ($this instanceof DayShift) {
+            return true;
+        }
+
+        if ($this instanceof LateShift && ($shift instanceof LateShift || $shift instanceof NightShift)) {
+            return true;
+        }
+
+        return false;
     }
 
     abstract function getStartTime();

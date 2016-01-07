@@ -117,13 +117,13 @@ class Period implements Iterator
     public function getWeeks($number)
     {
         $weeks = array();
-        $counter = 0;
 
         for ($i = 7; $i < $number; $i = $i + 7) {
             $weeks[] = array(
                 $this->days[$i -3],
                 $this->days[$i -2],
-                $this->days[$i -1]
+                $this->days[$i -1],
+                $this->days[$i]
             );
         }
 

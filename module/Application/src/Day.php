@@ -1,6 +1,10 @@
 <?php
 
 namespace Application;
+use Application\Day\WeekDay;
+use Application\Shift\DayShift;
+use Application\Shift\EarlyShift;
+use Application\Shift\LateShift;
 use Application\Shift\NightShift;
 
 /**
@@ -53,6 +57,33 @@ abstract class Day
         }
     }
 
+    public function getLateShift()
+    {
+        foreach ($this->shifts as $shift) {
+            if ($shift instanceof LateShift) {
+                return $shift;
+            }
+        }
+    }
+
+    public function getEarlyShift()
+    {
+        foreach ($this->shifts as $shift) {
+            if ($shift instanceof EarlyShift) {
+                return $shift;
+            }
+        }
+    }
+
+    public function getDayShift()
+    {
+        foreach ($this->shifts as $shift) {
+            if ($shift instanceof DayShift) {
+                return $shift;
+            }
+        }
+    }
+
     public function nurseExists(Nurse $nurse)
     {
         foreach ($this->shifts as $shift) {
@@ -62,6 +93,24 @@ abstract class Day
         }
 
         return false;
+    }
+
+    public function getNurses()
+    {
+        $nurses = array();
+
+        foreach ($this->shifts as $shift) {
+            $nurses = array_merge($nurses, $shift->getNurses());
+        }
+
+        return $nurses;
+    }
+
+    public function isWeekend()
+    {
+        if ($this instanceof WeekDay) {
+            return true;
+        }
     }
 
     protected abstract function prepareShifts();

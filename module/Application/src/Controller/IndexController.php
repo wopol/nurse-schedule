@@ -17,16 +17,23 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {
-        $period = new Period(35);
-        $nurses = Nurse::getNurses();
 
-        try {
-            $scheduler = new Scheduler($period, $nurses);
-            $scheduler->schedule();
-        } catch (Exception $ex) {
-            return $this->redirect("/");
+        $tryAgain = true;
+
+        while($tryAgain) {
+            Nurse::resetSeq();
+            $period = new Period(35);
+            $nurses = Nurse::getNurses();
+
+            try {
+                $scheduler = new Scheduler($period, $nurses);
+                $scheduler->schedule();
+
+                $tryAgain = false;
+            } catch (Exception $ex) {
+
+            }
         }
-
 
         $this->view->nurses = $scheduler->nurses;
     }

@@ -38,11 +38,19 @@ class Nurse
 
     public $nightShift = 0;
 
+    private $canLate = true;
+
+    public $priv;
+
     /**
      * @var Shift[]
      */
     private $shifts = array();
 
+    public static function resetSeq()
+    {
+        self::$seq = 1;
+    }
 
     public function __construct($hoursInContract)
     {
@@ -118,6 +126,16 @@ class Nurse
 
     }
 
+    public function canLate()
+    {
+        return $this->canLate;
+    }
+
+    public function withoutLate()
+    {
+        $this->canLate = false;
+    }
+
     /**
      * Temporary method to create nurse array
      * @return Nurse[]
@@ -129,6 +147,8 @@ class Nurse
         for($i = 0; $i < 12; $i++) {
             $nurses[] = new Nurse(36);
         }
+
+        end($nurses)->withoutLate();
 
         $nurses[] = new Nurse(32);
 

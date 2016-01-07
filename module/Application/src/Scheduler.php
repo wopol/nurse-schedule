@@ -4,6 +4,8 @@ namespace Application;
 
 
 use Application\Day\WeekDay;
+use Application\Shift\DayShift;
+use Application\Shift\EarlyShift;
 use Application\Shift\LateShift;
 use Application\Shift\NightShift;
 use Exception;
@@ -49,24 +51,40 @@ class Scheduler
 
             if ($this->dayNumber) {
                 if ($day->getDayNumber() > $this->dayNumber + 2) {
-                    var_dump('unlock');
-                    var_dump($day->getDayNumber());
+
                     $this->dayNumber = null;
                     $this->nurse = null;
-                } else if ($this->nurse == $randID) {
+                } else if (in_array($randID, $this->nurses)) {
                     continue;
+                }
+            }
+
+            if (($day->getDayNumber() - 7) % 7 == 0) {
+                $previousDay = $this->period->get($day->getDayNumber() - 1);
+                foreach ($previousDay->getNurses() as $nurse) {
+                    if ($this->compare($day, $nurse)) {
+                        continue;
+                    }
+                }
+
+            }
+
+            if (($day->getDayNumber() - 6) % 7 == 0) {
+                $previousDay = $this->period->get($day->getDayNumber() - 1);
+
+                foreach ($previousDay->getNightShift()->getNurses() as $nurse) {
+                    if ($this->compare($day, $nurse)) {
+                        continue;
+                    }
                 }
             }
 
             $this->compare($day, $this->nurses[$randID]);
 
-            if ($counter > 5000) {
-                $this->schedule();
+            if ($counter > 500) {
+                throw new Exception();
             }
-
         }
-
-
     }
 
     public function compare(Day $day, Nurse $nurse)
@@ -83,6 +101,29 @@ class Scheduler
         }
 
         foreach ($day->getShifts() as $shift) {
+
+            if ($day->getDayNumber() > 1 && ($day->getDayNumber() - 1) % 7 == 0) {
+                $previousDay = $this->period->get($day->getDayNumber() - 1);
+                $previous2Day = $this->period->get($day->getDayNumber() - 2);
+                $previous3Day = $this->period->get($day->getDayNumber() - 3);
+
+                if (!$previousDay->nurseExists($nurse)
+                        && !$previous2Day->nurseExists($nurse)
+                        && !$previous3Day->getNightShift()->nurseExists($nurse->id())) {
+
+                    if ($previous3Day->getLateShift()->nurseExists($nurse->id()) &&
+                            $shift instanceof DayShift || $shift instanceof EarlyShift) {
+                        continue;
+                    }
+
+
+                }
+            }
+
+            // One of the full time nurses request no late shifts (hard constraint)
+            if (!$nurse->canLate() && $shift instanceof LateShift) {
+                continue;
+            }
 
             //Cover needs to be fulfilled (i.e. no shifts must be left unassigned).
             if ($shift->isFull()) {
@@ -111,16 +152,24 @@ class Scheduler
             }
 
             //Following a series of at least 2 consecutive night shifts a 42 hours rest is required.
-            //TODO przerwa powinna trwać 42h teraz sprawdzane jest 24h
             $prev = $this->period->get(($day->getDayNumber() -1));
             $prev2 = $this->period->get(($day->getDayNumber() -2));
+            $prev3 = $this->period->get(($day->getDayNumber() -3));
 
             if ($prev instanceof Day && $prev2 instanceof Day) {
                 $prevNigh = $prev->getNightShift();
                 $prev2Nigh = $prev2->getNightShift();
+                if ($prev3 instanceof Day) {
+                    $prev3Nigh = $prev3->getNightShift();
+                }
 
                 if ($prev2Nigh->nurseExists($nurse->id()) && $prevNigh->nurseExists($nurse->id())) {
                     continue;
+                }
+                if ($prev3 instanceof Day) {
+                    if ($prev2Nigh->nurseExists($nurse->id()) && $prev3Nigh->nurseExists($nurse->id())) {
+                        continue;
+                    }
                 }
             }
 
@@ -147,6 +196,8 @@ class Scheduler
                 $isFiday = false;
             }
 
+
+            //A nurse must receive at least 2 weekends off duty per 5 week period. A weekend off duty lasts 60 hours including Saturday 00:00 to Monday 04:00.
             if ($day->getDayNumber() > 7 && ($day instanceof WeekDay || ($isFiday && $shift instanceof NightShift))) {
                 $weekends = $this->period->getWeeks($day->getDayNumber());
                 $left = 5 - count($weekends);
@@ -154,11 +205,23 @@ class Scheduler
                 $free = 0;
                 foreach ($weekends as $week) {
                     $night = $week[0]->getNightShift();
+                    $late = $week[0]->getLateShift();
 
-                    if (!$night->nurseExists($nurse->id()) && !$week[1]->nurseExists($nurse) && !$week[2]->nurseExists($nurse)) {
+                    $monEarl = $week[3]->getEarlyShift();
+                    $monDay = $week[3]->getDayShift();
+
+                    if (!$night->nurseExists($nurse->id()) &&
+                            !$week[1]->nurseExists($nurse) &&
+                            !$week[2]->nurseExists($nurse) &&
+                            ((!$late->nurseExists($nurse->id()) || ($late->nurseExists($nurse->id())
+                                && !$monDay->nurseExists($nurse->id())
+                                    && !$monEarl->nurseExists($nurse->id())
+                                )))
+                    ) {
                         $free++;
                     }
                 }
+
                 if ($free == 0 && $left < 3) {
                     continue;
                 }
@@ -167,23 +230,11 @@ class Scheduler
                     continue;
                 }
 
-                if (($isFiday && $shift instanceof NightShift) && !$this->dayNumber && $free < 2) {
-                    var_dump('free');
-                    var_dump($day->getDayNumber());
-                    $this->nurse = $nurse->id();
-                    $this->dayNumber = $day->getDayNumber();
-                    continue;
-                }
-
             }
-
-            //Checked free weeks
-            if ($nurse)
-
 
             $shift->attachNurse($nurse);
             $nurse->attachShift($shift);
-            break;
+            return true;
         }
     }
 
