@@ -41,7 +41,7 @@ class Nurse
     /**
      * @var Shift[]
      */
-    public $shifts = array();
+    private $shifts = array();
 
 
     public function __construct($hoursInContract)
@@ -107,6 +107,15 @@ class Nurse
         if (!empty($this->shifts)) {
             return end($this->shifts);
         }
+    }
+
+    public function checkFreeWeeks(Day $day)
+    {
+
+        foreach ($this->shifts as $shift) {
+
+        }
+
     }
 
     /**

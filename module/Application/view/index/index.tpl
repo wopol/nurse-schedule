@@ -1,7 +1,7 @@
 
 {foreach $nurses as $nurse}
     {$nurse->id()}:
-    {foreach $nurse->shifts as $shift}
+    {foreach $nurse->getShifts() as $shift}
         {$shift->getDay()->getDayNumber()}{$shift->getType()} ,
     {/foreach}
     <br/>
