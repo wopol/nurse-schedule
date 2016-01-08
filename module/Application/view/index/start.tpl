@@ -41,12 +41,12 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
                 },
                 minHours: 0,
                 maxHours: 24,
-                hourSize: 22,
+                hourSize: 15,
                 minColumnWidth: -1,
                 horizontalRenderer: HorizontalRenderer,
                 verticalRenderer: VerticalRenderer
             },
-            style: "position:relative;width:100%;height:700px"
+            style: "position:relative;width:100%;height:490px"
         }, "nurseCalendar");
     }
 });
