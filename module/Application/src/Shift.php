@@ -120,6 +120,11 @@ abstract class Shift
         return $this->getDay()->getDay()->format("Y-m-d") . ' ' . $this->getStartTime();
     }
 
+    public function getDateEndString()
+    {
+        return $this->getDay()->getDay()->format("Y-m-d") . ' ' . $this->getStopTime();
+    }
+
     abstract function getStartTime();
 
     abstract function getStopTime();

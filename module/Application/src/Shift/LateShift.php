@@ -14,12 +14,12 @@ class LateShift extends Shift
 
     function getStartTime()
     {
-        return "23:00:00";
+        return "14:00:00";
     }
 
     function getStopTime()
     {
-        return "07:00:00";
+        return "23:00:00";
     }
     function getType()
     {

@@ -26,4 +26,13 @@ class NightShift extends Shift
     {
         return 'Night';
     }
+
+    public function getDateEndString()
+    {
+        $interval = \DateInterval::createfromdatestring('+1 day');
+
+        $day = $this->getDay()->getDay()->add($interval);
+
+        return $day->format("Y-m-d") . ' ' . $this->getStopTime();
+    }
 }
