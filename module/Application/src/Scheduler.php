@@ -22,10 +22,6 @@ class Scheduler
      */
     public $nurses;
 
-    private $nurse;
-
-    private $dayNumber;
-
 
     public function __construct($period, $nurse)
     {
@@ -47,17 +43,6 @@ class Scheduler
             }
 
             $lastDay = $day;
-            $randID = rand(0, count($this->nurses) - 1);
-
-            if ($this->dayNumber) {
-                if ($day->getDayNumber() > $this->dayNumber + 2) {
-
-                    $this->dayNumber = null;
-                    $this->nurse = null;
-                } else if (in_array($randID, $this->nurses)) {
-                    continue;
-                }
-            }
 
             if (($day->getDayNumber() - 7) % 7 == 0) {
                 $previousDay = $this->period->get($day->getDayNumber() - 1);
@@ -79,6 +64,7 @@ class Scheduler
                 }
             }
 
+            $randID = rand(0, count($this->nurses) - 1);
             $this->compare($day, $this->nurses[$randID]);
 
             if ($counter > 500) {

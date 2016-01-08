@@ -96,11 +96,9 @@ abstract class Shift
      */
     public function mayByNext(Shift $shift)
     {
-
         if ($this instanceof NightShift && $shift instanceof NightShift) {
             return true;
         }
-
 
         if ($this instanceof EarlyShift) {
             return true;
@@ -115,6 +113,11 @@ abstract class Shift
         }
 
         return false;
+    }
+
+    public function getDateString()
+    {
+        return $this->getDay()->getDay()->format("Y-m-d") . ' ' . $this->getStartTime();
     }
 
     abstract function getStartTime();

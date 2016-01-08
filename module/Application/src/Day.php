@@ -1,11 +1,15 @@
 <?php
 
 namespace Application;
+
 use Application\Day\WeekDay;
 use Application\Shift\DayShift;
 use Application\Shift\EarlyShift;
 use Application\Shift\LateShift;
 use Application\Shift\NightShift;
+use DateTime;
+use DateInterval;
+
 
 /**
  * Abstract class Day
@@ -14,24 +18,62 @@ use Application\Shift\NightShift;
  */
 abstract class Day
 {
+    /**
+     * @var int
+     */
     protected $dayNumber;
+
+    /**
+     * @var DateTime
+     */
+    private $day;
 
     /**
      * @var Shift[]
      */
     protected $shifts;
 
-    public function __construct($dayNumber)
+    public function __construct($dayNumber, $dateStart)
     {
         $this->dayNumber = $dayNumber;
+        $date = new DateTime($dateStart);
+        $interval = DateInterval::createfromdatestring('+'.$dayNumber.' day');
+
+        $date->add($interval);
+        $this->day = $date;
+
         $this->prepareShifts();
     }
 
+    public function getDayNumber()
+    {
+        return $this->dayNumber;
+    }
+
+
+    /**
+     * Returns day
+     * @return DateTime
+     */
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+
+    /**
+     * @return Shift[]
+     */
     public function getShifts()
     {
         return $this->shifts;
     }
 
+
+    /**
+     * checks if shift is full
+     * @return bool
+     */
     public function shiftsCompleted()
     {
         foreach ($this->shifts as $shift) {
@@ -43,10 +85,6 @@ abstract class Day
         return true;
     }
 
-    public function getDayNumber()
-    {
-        return $this->dayNumber;
-    }
 
     public function getNightShift()
     {
@@ -56,6 +94,7 @@ abstract class Day
             }
         }
     }
+
 
     public function getLateShift()
     {
@@ -84,6 +123,11 @@ abstract class Day
         }
     }
 
+    /**
+     * Checks if nurse works in this day
+     * @param Nurse $nurse
+     * @return bool
+     */
     public function nurseExists(Nurse $nurse)
     {
         foreach ($this->shifts as $shift) {

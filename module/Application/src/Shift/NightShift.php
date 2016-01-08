@@ -14,12 +14,12 @@ class NightShift extends Shift
 
     function getStartTime()
     {
-        // TODO: Implement getStartTime() method.
+        return '23:00:00';
     }
 
     function getStopTime()
     {
-        // TODO: Implement getStopTime() method.
+        return '07:00:00';
     }
 
     function getType()

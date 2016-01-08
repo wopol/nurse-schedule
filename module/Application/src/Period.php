@@ -23,12 +23,12 @@ class Period implements Iterator
     private $current = 0;
 
 
-    public function __construct($daysCount)
+    public function __construct($daysCount, $dateStart)
     {
-        $this->prepareDays($daysCount);
+        $this->prepareDays($daysCount, $dateStart);
     }
 
-    private function prepareDays($count)
+    private function prepareDays($count, $dateStart)
     {
         $counter = 1;
         for ($i = 1; $i <= $count; $i++) {
@@ -36,9 +36,9 @@ class Period implements Iterator
                 if ($counter == 7) {
                     $counter = 0;
                 }
-                $this->days[] = new WeekDay($i);
+                $this->days[] = new WeekDay($i, $dateStart);
             } else {
-                $this->days[] = new WorkDay($i);
+                $this->days[] = new WorkDay($i, $dateStart);
             }
             $counter++;
         }

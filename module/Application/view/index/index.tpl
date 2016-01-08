@@ -2,7 +2,9 @@
 {foreach $nurses as $nurse}
     {$nurse->id()}:
     {foreach $nurse->getShifts() as $shift}
-        {$shift->getDay()->getDayNumber()}{$shift->getType()}{if $shift->getDay()->isWeekend()}*{/if} ,
+        {$shift->getDateString()}
+        {$shift->getType()}
+        {if $shift->getDay()->isWeekend()}*{/if} ,<br/>
     {/foreach}
     <br/>
     <br/>

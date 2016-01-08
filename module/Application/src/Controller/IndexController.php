@@ -15,14 +15,19 @@ use Exception;
  */
 class IndexController extends BaseController
 {
+
+
     public function indexAction()
     {
 
+        $dateStart = "2015-10-10";
         $tryAgain = true;
 
         while($tryAgain) {
             Nurse::resetSeq();
-            $period = new Period(35);
+            $period = new Period(35, $dateStart);
+
+
             $nurses = Nurse::getNurses();
 
             try {
