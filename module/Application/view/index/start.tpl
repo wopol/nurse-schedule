@@ -6,64 +6,58 @@
 require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Observable", "dojo/store/Memory", "dojox/calendar/ColumnView",
         'dojox/calendar/HorizontalRenderer',
         'dojox/calendar/LabelRenderer',
-        'dojox/calendar/VerticalRenderer'],
-  function(parser, ready, Calendar, Observable, Memory, ColumnView, HorizontalRenderer, LabelRenderer, VerticalRenderer){
+        'dojox/calendar/VerticalRenderer',
+        'dojo/dom',
+        'dijit/registry',
+        'dojo/dom-construct'],
+  function(parser, ready, Calendar, Observable, Memory, ColumnView, HorizontalRenderer, LabelRenderer, VerticalRenderer, dom, registry, domConstruct){
+     var schedule = JSON.parse('{$scheduleJson}');
+
     ready(function(){
-        var someData = [
-            {$counter=0}
-            {foreach $nurses as $nurse}
-                {foreach $nurse->getShifts() as $shift}
-                    {
-                      id: {$counter++},
-                      summary: "{$shift->getType()}",
-                      startTime: new Date('{$shift->getDateString()}'),
-                      endTime: new Date('{$shift->getDateEndString()}')
-                  },
-                {/foreach}
-                {if $counter > 100}
-                    {break}
-                {/if}
-            {/foreach}
-        ];
+        console.log(schedule);
+    });
 
-console.log(someData);
+    changeNurse = function(nurseId) {
 
+        if (registry.byId('nurseCalendar')) {
+            registry.byId('nurseCalendar').destroyRecursive();
+        }
+        var container = domConstruct.toDom("<div id='nurseCalendar'></div>");
+        domConstruct.place(container, "nurseCalendarContainer");
 
         calendar = new Calendar({
-          date: new Date(2015, 9, 10),
-          store: new Observable(new Memory({ data: someData })),
-          dateInterval: "day",
-          columnViewProps: {
-     startTimeOfDay: {
-         hours: 8,
-         minutes: 0
-     },
-     minHours: 0,
-     maxHours: 24,
-     hourSize: 20,
-     horizontalRenderer: HorizontalRenderer,
-     verticalRenderer: VerticalRenderer
- },
-          style: "position:relative;width:90%;height:800px"
-      }, "nurseCalendar");
-              }
-    )}
-  );
+            date: new Date(2015, 9, 10),
+            store: new Observable(new Memory({ data: schedule[nurseId].shifts })),
+            dateInterval: "day",
+            decodeDate: function(s) {
+                    return new Date(s);
+            },
+            columnViewProps: {
+                startTimeOfDay: {
+                    hours: 8,
+                    minutes: 0
+                },
+                minHours: 0,
+                maxHours: 24,
+                hourSize: 20,
+                horizontalRenderer: HorizontalRenderer,
+                verticalRenderer: VerticalRenderer
+            },
+            style: "position:relative;width:90%;height:800px"
+        }, "nurseCalendar");
+    }
+});
 
 </script>
-{foreach $nurses as $nurse}
-    <div id="nurseCalendar"></div>
-    {break}
-{/foreach}
+    <div>Wybierz pielęgniarkę:
+        <select onchange="changeNurse(this.value);">
+            <option value="">Wybierz...</option>
+            {foreach $schedule as $nurse}
+                <option value="{$nurse['nurse']['nurse_id']}">Pielęgniarka {$nurse['nurse']['nurse_id']}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div id="nurseCalendarContainer">
 
-{*foreach $nurses as $nurse}
-    {$nurse->id()}:
-    {foreach $nurse->getShifts() as $shift}
-        {$shift->getDateString()}
-        {$shift->getType()}
-        {if $shift->getDay()->isWeekend()}*{/if} ,<br/>
-    {/foreach}
-    <br/>
-    <br/>
-{/foreach*}
+    </div>
 <br/>

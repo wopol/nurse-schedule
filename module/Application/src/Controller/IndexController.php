@@ -41,8 +41,10 @@ class IndexController extends BaseController
 
             }
         }
-        //die(var_dump($scheduler->nurses));
-        $this->view->nurses = $scheduler->nurses;
+
+        $schedule = $scheduler->prepareForCalendar();
+        $this->view->schedule = $schedule;
+        $this->view->scheduleJson = json_encode($schedule);
     }
 
 }

@@ -225,4 +225,37 @@ class Scheduler
     }
 
 
+    public function prepareForCalendar()
+    {
+        $i = 1;
+        $schedule = array();
+
+        foreach ($this->nurses as $nurse) {
+            $schedule[$i] = array(
+                'nurse' => array(
+                    'nurse_id' => $i
+                )
+            );
+
+            $nurseSchedule = array();
+
+            $k = 0;
+            foreach ($nurse->getShifts() as $shift) {
+                $nurseSchedule[$k] = array(
+                    'id' => $k,
+                    'startTime' => $shift->getDateString(),
+                    'endTime'   => $shift->getDateEndString(),
+                    'summary'   => $shift->getType()
+                );
+
+                $k++;
+            }
+            $schedule[$i]['shifts'] = $nurseSchedule;
+            $i++;
+        }
+
+        return $schedule;
+    }
+
+
 }
