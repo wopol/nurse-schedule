@@ -22,7 +22,7 @@ class IndexController extends BaseController
 
     public function startAction()
     {
-        $dateStart = "2015-10-10";
+        $dateStart = "2016-01-10";
         $tryAgain = true;
 
         while($tryAgain) {
@@ -43,8 +43,13 @@ class IndexController extends BaseController
         }
 
         $schedule = $scheduler->prepareForCalendar();
+
         $this->view->schedule = $schedule;
         $this->view->scheduleJson = json_encode($schedule);
+        $this->view->nurses = $scheduler->nurses;
+
     }
+
+
 
 }

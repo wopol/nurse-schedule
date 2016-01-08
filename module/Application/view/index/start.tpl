@@ -26,9 +26,9 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
         domConstruct.place(container, "nurseCalendarContainer");
 
         calendar = new Calendar({
-            date: new Date(2015, 9, 10),
+            date: new Date(2016, 0, 10),
             store: new Observable(new Memory({ data: schedule[nurseId].shifts })),
-            dateInterval: "day",
+            dateInterval: "week",
             decodeDate: function(s) {
                     return new Date(s);
             },
@@ -61,3 +61,16 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
 
     </div>
 <br/>
+
+
+
+{foreach $nurses as $nurse}
+    {$nurse->id()}:
+    {foreach $nurse->getShifts() as $shift}
+        {$shift->getDateString()}
+        {$shift->getType()}
+        {if $shift->getDay()->isWeekend()}*{/if} ,<br/>
+    {/foreach}
+    <br/>
+    <br/>
+{/foreach}

@@ -31,8 +31,8 @@ class NightShift extends Shift
     {
         $interval = \DateInterval::createfromdatestring('+1 day');
 
-        $day = $this->getDay()->getDay()->add($interval);
-
+        $day = clone $this->getDay()->getDay();
+        $day->add($interval);
         return $day->format("Y-m-d") . ' ' . $this->getStopTime();
     }
 }

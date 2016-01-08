@@ -227,13 +227,12 @@ class Scheduler
 
     public function prepareForCalendar()
     {
-        $i = 1;
         $schedule = array();
-
+        $zmiany = 1;
         foreach ($this->nurses as $nurse) {
-            $schedule[$i] = array(
+            $schedule[$nurse->id()] = array(
                 'nurse' => array(
-                    'nurse_id' => $i
+                    'nurse_id' => $nurse->id()
                 )
             );
 
@@ -248,10 +247,11 @@ class Scheduler
                     'summary'   => $shift->getType()
                 );
 
+                $zmiany++;
+
                 $k++;
             }
-            $schedule[$i]['shifts'] = $nurseSchedule;
-            $i++;
+            $schedule[$nurse->id()]['shifts'] = $nurseSchedule;
         }
 
         return $schedule;
