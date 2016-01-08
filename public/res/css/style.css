@@ -277,7 +277,7 @@ table.list > tbody > tr:nth-child(odd) {
     overflow: auto !important;
 }
 .row {
-    width: 99%;
+
     margin: 0 !important;
     pading: 0 !important;
 }
@@ -581,7 +581,7 @@ ul.funel-status-bar li span{
 }
 
 #generate-schedule {
-    background-image: url('http://avada.zxy.me/nurse/nurse.jpg');
+    background-image: url('../img/nurse.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -603,4 +603,67 @@ ul.funel-status-bar li span{
     padding: 10px 25px 25px 25px;
     border-radius: 20px;
     box-shadow: 10px 10px 28px 0px rgba(50, 50, 50, 0.19);
+}
+
+#nurse-data { display: none; }
+
+#nurse-schedule-back {
+    background-image: url('../img/nurse-appreciation.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#nurse-schedule-container {
+    box-sizing: border-box;
+    padding: 20px 0 20px 0;
+    background: rgba(255, 255, 255, 0.9);
+    margin-top: 20px;
+    box-shadow: 10px 10px 28px 0px rgba(50, 50, 50, 0.19);
+}
+
+#nurse-schedule-container h2 {
+    font-size: 130%;
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+    padding: 0;
+}
+
+#nurse-schedule-container label {
+    margin: 0 0 10px 0;
+}
+
+#nurseCalendarContainer {
+    box-sizing: border-box;
+    padding: 5% 0 0 0;
+}
+
+#nurse-schedule-hello {
+    margin: 30px 0 0 0;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#nurseCalendar {
+    background: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    box-shadow: 10px 10px 28px 0px rgba(50, 50, 50, 0.19);
+}
+
+#nurse-select {
+}
+
+.nurse-schedule-overlay {
+    background: url('http://jaysalvat.github.io/vegas/releases/latest/overlays/02.png') repeat top;
+    width: 100%;
+    height: 100%;
+}
+
+.dijitButtonText {
+    color: #000;
+}
+
+.dojoxCalendarVScrollBar {
+    display: none;
 }

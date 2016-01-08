@@ -22,7 +22,7 @@ class IndexController extends BaseController
 
     public function startAction()
     {
-        $dateStart = "2016-01-10";
+        $dateStart = "2016-01-04";
         $tryAgain = true;
 
         while($tryAgain) {
