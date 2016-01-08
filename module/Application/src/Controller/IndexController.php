@@ -15,11 +15,13 @@ use Exception;
  */
 class IndexController extends BaseController
 {
-
-
     public function indexAction()
     {
 
+    }
+
+    public function startAction()
+    {
         $dateStart = "2015-10-10";
         $tryAgain = true;
 
@@ -39,7 +41,7 @@ class IndexController extends BaseController
 
             }
         }
-
+        //die(var_dump($scheduler->nurses));
         $this->view->nurses = $scheduler->nurses;
     }
 

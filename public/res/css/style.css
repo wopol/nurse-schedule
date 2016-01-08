@@ -32,7 +32,7 @@ body {
     line-height: 1;
     background: #ffffff;
     font-size: 0.9em;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans";
     height: 100%;
 }
 ol, ul {
@@ -578,4 +578,29 @@ ul.funel-status-bar li span{
     bottom: 7px;
     left: 45%;
     color: #777;
+}
+
+#generate-schedule {
+    background-image: url('http://avada.zxy.me/nurse/nurse.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10% 0 0 0;
+}
+
+#generate-form > .row > h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 115%;
+}
+
+.form-group > label { padding: 5px 0 7px 0; }
+
+#generate-form {
+    background: rgba(159, 193, 239, 0.75);
+    padding: 10px 25px 25px 25px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 28px 0px rgba(50, 50, 50, 0.19);
 }
