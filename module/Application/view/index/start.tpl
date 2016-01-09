@@ -1,3 +1,4 @@
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config="async: true"></script>
 <style type="text/css">
   .dojoxCalendar{ font-size: 12px; font-family:Myriad,Helvetica,Tahoma,Arial,clean,sans-serif; }
 </style>
@@ -51,6 +52,20 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
     }
 });
 </script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $("#show-tabled-btn").click(function(e) {
+            if($(this).hasClass('active')) {
+                $('#schedule-tabled').hide("slow");
+                $(this).empty().html('Pokaż kalendarz w formie tabeli').removeClass('active');
+            }
+            else {
+                $('#schedule-tabled').show("slow");
+                $(this).empty().html('Ukryj kalendarz w formie tabeli').addClass('active');
+            }
+        });
+    });
+</script>
 <div id="nurse-schedule-back">
     <div class="nurse-schedule-overlay">
         <div class="container">
@@ -71,14 +86,46 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
                     <div class="col-lg-12">
                         <h3 id="nurse-schedule-hello">Wybierz pielęgniarkę, aby wyświetlić grafik!</h3>
                     </div>
+                    <div class="col-lg-12" id="show-tabled">
+                        <button class="btn btn-primary" id="show-tabled-btn">Pokaż kalendarz w formie tabeli</button>
+                    </div>
                 </div>
             </div>
-                <div class="row">
-                    <div class="col-lg-12" id="nurseCalendarContainer">
+            <div class="row">
+                <div class="col-lg-12" id="nurseCalendarContainer">
 
-                    </div>
+                </div>
+            </div>
+            <div id="schedule-tabled">
+                <div class="row">
+                    {foreach $nurses as $nurse}
+                        <div class="col-lg-6">
+                            <div class="nurse-table">
+                                <h3>Grafik dla pielęgniarki nr: {$nurse->id()}</h3>
+                                <table class="table table-condensed table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Typ</th>
+                                        <th>Weekend</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach $nurse->getShifts() as $shift}
+                                        <tr>
+                                            <td>{$shift->getDateString()}</td>
+                                            <td>{$shift->getType()}</td>
+                                            <td>{if $shift->getDay()->isWeekend()}<strong>TAK</strong>{else}NIE{/if}</td>
+                                        </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {/foreach}
                 </div>
             </div>
         </div>
     </div>
 </div>
+

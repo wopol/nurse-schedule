@@ -14,11 +14,55 @@
 	<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link href="/res/css/style.css" rel="stylesheet" type="text/css">
 
-
-	<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config="async: true"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#startForm").validate({
+				submitHandler: function(form) {
+					form.submit();
+				},
+				rules: {
+					"nurse[36]": { required: true, digits: true, min: 1, max: 30 },
+					"nurse[32]": { required: true, digits: true, min: 1, max: 30 },
+					"nurse[20]": { required: true, digits: true, min: 1, max: 30 },
+					"date[days]": { required: true, digits: true, min: 14 },
+					"date[startDate]": { required: true, date: true }
+				},
+				messages: {
+					"nurse[36]": {
+						required: "To pole jest wymagane!",
+						digits: "To pole może zawierać jedynie liczby!",
+						min: "Podana wartość musi być większa niż 1",
+						max: "Podana wartość musi być mniejsza niż 30"
+					},
+					"nurse[32]": {
+						required: "To pole jest wymagane!",
+						digits: "To pole może zawierać jedynie liczby!",
+						min: "Podana wartość musi być większa niż 1",
+						max: "Podana wartość musi być mniejsza niż 30"
+					},
+					"nurse[20]": {
+						required: "To pole jest wymagane!",
+						digits: "To pole może zawierać jedynie liczby!",
+						min: "Podana wartość musi być większa niż 1",
+						max: "Podana wartość musi być mniejsza niż 30"
+					},
+					"date[days]": {
+						required: "To pole jest wymagane!",
+						digits: "To pole może zawierać jedynie liczbę całkowitą!",
+						min: "Minimalnie 14 dni!"
+					},
+					"date[startDate]": {
+						required: "To pole jest wymagane!",
+						date: "To pole może zawierać jedynie datę w formacie YYYY-MM-DD!"
+					}
+				}
+			});
+		});
+	</script>
 </head>
 <body id="page" class="claro">
 {$content}
