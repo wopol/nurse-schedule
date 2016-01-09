@@ -11,17 +11,27 @@ use Application\Shift\NightShift;
  */
 class Nurse
 {
-    public static $seq = 1;
+    /**
+     * Sequence class variable
+     * Variable make sure that nurse have unique id
+     * Variable are incremente when creates new instance this class
+     * @var int
+     */
+    private static $seq = 1;
+
 
     /**
+     * Nurse unique identifier
      * @var int
      */
     private $id;
+
 
     /**
      * @var int
      */
     private $hoursInContract;
+
 
     /**
      * Used hours in period
@@ -29,35 +39,66 @@ class Nurse
      */
     private $usedHours;
 
+
     /**
-     * Max hours
+     * Max number hours to be used in period
      * @var int
      */
     private $totalHours;
 
 
+    /**
+     * Used night shifts in period
+     * @var int
+     */
     public $nightShift = 0;
 
-    private $canLate = true;
-
-    public $priv;
 
     /**
+     * This flag, allow nurse to work on late shifts
+     * @var bool
+     */
+    private $canLate = true;
+
+
+    /**
+     * Nurse shifts array
      * @var Shift[]
      */
     private $shifts = array();
 
+
+    /**
+     * Rewind nurse sequence
+     */
     public static function resetSeq()
     {
         self::$seq = 1;
     }
 
+
+    /**
+     * Nurse constructor.
+     * It must receive how many time nurse works peer week
+     * @param $hoursInContract
+     */
     public function __construct($hoursInContract)
     {
         $this->id = self::$seq++;
         $this->hoursInContract = $hoursInContract;
         $this->totalHours = $hoursInContract *5;
     }
+
+
+    /**
+     * Returns nurse id
+     * @return int
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
 
     /**
      * Checks if nurse used all available hours in period
@@ -72,14 +113,6 @@ class Nurse
         }
     }
 
-    /**
-     * Returns nurse id
-     * @return int
-     */
-    public function id()
-    {
-        return $this->id;
-    }
 
     /**
      * Attach shift to nurse
@@ -117,20 +150,20 @@ class Nurse
         }
     }
 
-    public function checkFreeWeeks(Day $day)
-    {
 
-        foreach ($this->shifts as $shift) {
-
-        }
-
-    }
-
+    /**
+     * Checks if nurse can works on late shift
+     * @return bool
+     */
     public function canLate()
     {
         return $this->canLate;
     }
 
+
+    /**
+     * Sets flag, that prevents works on late shift
+     */
     public function withoutLate()
     {
         $this->canLate = false;
@@ -140,19 +173,20 @@ class Nurse
      * Temporary method to create nurse array
      * @return Nurse[]
      */
-    public static function getNurses()
+    public static function getNurses($a, $b, $c)
     {
         $nurses = array();
 
-        for($i = 0; $i < 12; $i++) {
+        for($i = 0; $i < $a; $i++) {
             $nurses[] = new Nurse(36);
         }
-
         end($nurses)->withoutLate();
 
-        $nurses[] = new Nurse(32);
+        for ($i = 0; $i < $b; $i++) {
+            $nurses[] = new Nurse(32);
+        }
 
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < $c; $i++) {
             $nurses[] = new Nurse(30);
         }
 

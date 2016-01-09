@@ -12,15 +12,25 @@ use Application\Shift;
 class LateShift extends Shift
 {
 
+    /**
+     * @return string
+     */
     function getStartTime()
     {
         return "14:00:00";
     }
 
+    /**
+     * @return string
+     */
     function getStopTime()
     {
         return "23:00:00";
     }
+
+    /**
+     * @return string
+     */
     function getType()
     {
         return 'Late';

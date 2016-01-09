@@ -9,6 +9,7 @@ use Application\Shift\LateShift;
 use Application\Shift\NightShift;
 use DateTime;
 use DateInterval;
+use Exception;
 
 
 /**
@@ -18,33 +19,57 @@ use DateInterval;
  */
 abstract class Day
 {
+
     /**
+     * Day number in the cycle
      * @var int
      */
     protected $dayNumber;
 
+
     /**
+     * Day date
      * @var DateTime
      */
     private $day;
 
+
     /**
-     * @var Shift[]
+     * Day shifts
+     * @var Shift[4]
      */
     protected $shifts;
 
+
+    /**
+     * Day constructor.
+     * Constructor based on period begin date and day number creates real date object
+     * Constructor makes sure to create 4 changes
+     * @param int $dayNumber
+     * @param string $dateStart
+     * @throws Exception
+     */
     public function __construct($dayNumber, $dateStart)
     {
         $this->dayNumber = $dayNumber;
-        $date = new DateTime($dateStart);
-        $interval = DateInterval::createfromdatestring('+'.$dayNumber.' day');
 
+        $date = new DateTime($dateStart);
+        $interval = DateInterval::createfromdatestring('+'.($dayNumber - 1).' day');
         $date->add($interval);
         $this->day = $date;
 
         $this->prepareShifts();
+
+        if (count($this->shifts) != 4) {
+            throw new Exception("Day required four shifts");
+        }
     }
 
+
+    /**
+     * Returns day number
+     * @return int
+     */
     public function getDayNumber()
     {
         return $this->dayNumber;
@@ -62,6 +87,7 @@ abstract class Day
 
 
     /**
+     * Returns shifts
      * @return Shift[]
      */
     public function getShifts()
@@ -71,7 +97,7 @@ abstract class Day
 
 
     /**
-     * checks if shift is full
+     * Checks if shift is full
      * @return bool
      */
     public function shiftsCompleted()
@@ -86,6 +112,10 @@ abstract class Day
     }
 
 
+    /**
+     * Returns night shift
+     * @return NightShift
+     */
     public function getNightShift()
     {
         foreach ($this->shifts as $shift) {
@@ -96,6 +126,10 @@ abstract class Day
     }
 
 
+    /**
+     * Returns late shift
+     * @return LateShift
+     */
     public function getLateShift()
     {
         foreach ($this->shifts as $shift) {
@@ -105,6 +139,10 @@ abstract class Day
         }
     }
 
+    /**
+     * Returns EarlyShift
+     * @return EarlyShift
+     */
     public function getEarlyShift()
     {
         foreach ($this->shifts as $shift) {
@@ -114,6 +152,10 @@ abstract class Day
         }
     }
 
+    /**
+     * Returns DayShift
+     * @return DayShift
+     */
     public function getDayShift()
     {
         foreach ($this->shifts as $shift) {
@@ -122,6 +164,7 @@ abstract class Day
             }
         }
     }
+
 
     /**
      * Checks if nurse works in this day
@@ -139,6 +182,10 @@ abstract class Day
         return false;
     }
 
+    /**
+     * Returns nurses attached to shifts belongs to this day
+     * @return Nurse[]
+     */
     public function getNurses()
     {
         $nurses = array();
@@ -150,6 +197,11 @@ abstract class Day
         return $nurses;
     }
 
+
+    /**
+     * Checks if day is in weekend
+     * @return bool
+     */
     public function isWeekend()
     {
         if ($this instanceof WeekDay) {
@@ -157,6 +209,11 @@ abstract class Day
         }
     }
 
+
+    /**
+     * Method must be overloaded by class extend Day Class,
+     * In this method should by created 4 types shifts
+     */
     protected abstract function prepareShifts();
 
 }

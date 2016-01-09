@@ -2,7 +2,6 @@
 
 namespace Application;
 
-
 use Application\Day\WeekDay;
 use Application\Shift\DayShift;
 use Application\Shift\EarlyShift;
@@ -10,6 +9,13 @@ use Application\Shift\LateShift;
 use Application\Shift\NightShift;
 use Exception;
 
+
+/**
+ * Class Scheduler
+ * Creates schedule shifts for nurses
+ * @author Wojciech Polus
+ * @package Application
+ */
 class Scheduler
 {
     /**
@@ -23,12 +29,23 @@ class Scheduler
     public $nurses;
 
 
+    /**
+     * Scheduler constructor.
+     * @param Period $period
+     * @param Nurse[] $nurse
+     */
     public function __construct($period, $nurse)
     {
         $this->period = $period;
         $this->nurses = $nurse;
     }
 
+
+    /**
+     * Schedule function
+     * Class trying to fit a nurse to change, in case of deadlock throws Exception
+     * @throws Exception
+     */
     public function schedule()
     {
         $counter = 0;
@@ -73,6 +90,13 @@ class Scheduler
         }
     }
 
+    /**
+     * Function implements and checks all soft and hard constraints
+     * Attaches nurse to shifts on success
+     * @param Day $day
+     * @param Nurse $nurse
+     * @return bool
+     */
     public function compare(Day $day, Nurse $nurse)
     {
 
@@ -87,6 +111,15 @@ class Scheduler
         }
 
         foreach ($day->getShifts() as $shift) {
+
+
+            //Soft Constraints
+            //A night shift after an early shift should be avoided
+            $last1 = $nurse->getLastShift();
+
+            if ($last1 instanceof NightShift && $shift instanceof EarlyShift) {
+                continue;
+            }
 
             if ($day->getDayNumber() > 1 && ($day->getDayNumber() - 1) % 7 == 0) {
                 $previousDay = $this->period->get($day->getDayNumber() - 1);
@@ -220,11 +253,15 @@ class Scheduler
 
             $shift->attachNurse($nurse);
             $nurse->attachShift($shift);
+
             return true;
         }
     }
 
-
+    /**
+     * Prepares data to show in javascript calendar
+     * @return mixed[]
+     */
     public function prepareForCalendar()
     {
         $schedule = array();

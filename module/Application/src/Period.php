@@ -9,6 +9,7 @@ use Iterator;
 
 /**
  * Class Period (Simple iterator)
+ * Returns next day, only when current day shifts are full covered
  * @author Wojciech Polus
  * @package Application
  */
@@ -20,14 +21,30 @@ class Period implements Iterator
      */
     private $days;
 
+    /**
+     * Current element index
+     * @var int
+     */
     private $current = 0;
 
 
+    /**
+     * Period constructor. Prepares period.
+     * @param int $daysCount
+     * @param string $dateStart
+     */
     public function __construct($daysCount, $dateStart)
     {
         $this->prepareDays($daysCount, $dateStart);
     }
 
+
+    /**
+     * Helper method to creates period days.
+     * Creates arrays days, every fifth and sixth is weekend day
+     * @param int $count
+     * @param string $dateStart
+     */
     private function prepareDays($count, $dateStart)
     {
         $counter = 1;
@@ -44,9 +61,10 @@ class Period implements Iterator
         }
     }
 
+
     /**
      * Returns day on the specified number
-     * @param $dayNumber
+     * @param int $dayNumber
      * @return Day
      */
     public function get($dayNumber) {
@@ -54,6 +72,7 @@ class Period implements Iterator
             return $this->days[$dayNumber - 1];
         }
     }
+
 
     /**
      * Return the current element
@@ -65,6 +84,7 @@ class Period implements Iterator
     {
         return $this->days[$this->current];
     }
+
 
     /**
      * Move forward to next element
@@ -80,6 +100,7 @@ class Period implements Iterator
         }
     }
 
+
     /**
      * Return the key of the current element
      * @link http://php.net/manual/en/iterator.key.php
@@ -90,6 +111,7 @@ class Period implements Iterator
     {
         return $this->current;
     }
+
 
     /**
      * Checks if current position is valid
@@ -103,6 +125,7 @@ class Period implements Iterator
         return isset($this->days[$this->current]);
     }
 
+
     /**
      * Rewind the Iterator to the first element
      * @link http://php.net/manual/en/iterator.rewind.php
@@ -114,6 +137,13 @@ class Period implements Iterator
         $this->current = 0;
     }
 
+
+    /**
+     * Returns weekend before receive day number;
+     * Weekend lasts 60 h including Saturday 00:00 to Monday 04:00.
+     * @param $number
+     * @return array
+     */
     public function getWeeks($number)
     {
         $weeks = array();

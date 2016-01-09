@@ -31,6 +31,12 @@ abstract class Shift
     private $day;
 
 
+    /**
+     * Shift constructor.
+     * Constructor must receive number of nurses  required to cover shift, and Day object
+     * @param int $count
+     * @param Day $day
+     */
     public function __construct($count, Day $day)
     {
         $this->nurseCount = (int) $count;
@@ -83,6 +89,10 @@ abstract class Shift
         }
     }
 
+    /**
+     * Returns nurses attached to this shift
+     * @return Nurse[]
+     */
     public function getNurses()
     {
         return $this->nurses;
@@ -115,20 +125,43 @@ abstract class Shift
         return false;
     }
 
+
+    /**
+     * Returns start date string
+     * @return string
+     */
     public function getDateString()
     {
         return $this->getDay()->getDay()->format("Y-m-d") . ' ' . $this->getStartTime();
     }
 
+
+    /**
+     * Returns end date string
+     * @return string
+     */
     public function getDateEndString()
     {
         return $this->getDay()->getDay()->format("Y-m-d") . ' ' . $this->getStopTime();
     }
 
+    /**
+     * Returns start shift time string
+     * @return string
+     */
     abstract function getStartTime();
 
+    /**
+     * Returns end shift time string
+     * @return string
+     */
     abstract function getStopTime();
 
+
+    /**
+     * Returns shift type string
+     * @return string
+     */
     abstract function getType();
 
 }

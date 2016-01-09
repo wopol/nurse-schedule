@@ -14,16 +14,25 @@ use Application\Shift;
 class EarlyShift extends Shift
 {
 
+    /**
+     * @return string
+     */
     function getStartTime()
     {
         return "07:00:00";
     }
 
+    /**
+     * @return string
+     */
     function getStopTime()
     {
         return "16:00:00";
     }
 
+    /**
+     * @return string
+     */
     function getType()
     {
         return 'Early';

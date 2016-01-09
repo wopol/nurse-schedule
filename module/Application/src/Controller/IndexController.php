@@ -17,49 +17,26 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {
-
+        $this->view->error = $this->request->error ? true : false;
     }
 
-    public function tableAction()
-    {
-        $dateStart = "2016-01-04";
-        $tryAgain = true;
-
-        while($tryAgain) {
-            Nurse::resetSeq();
-            $period = new Period(35, $dateStart);
-
-
-            $nurses = Nurse::getNurses();
-
-            try {
-                $scheduler = new Scheduler($period, $nurses);
-                $scheduler->schedule();
-
-                $tryAgain = false;
-            } catch (Exception $ex) {
-
-            }
-        }
-
-        $schedule = $scheduler->prepareForCalendar();
-
-        $this->view->schedule = $schedule;
-        $this->view->scheduleJson = json_encode($schedule);
-        $this->view->nurses = $scheduler->nurses;
-    }
 
     public function startAction()
     {
-        $dateStart = "2016-01-04";
+
         $tryAgain = true;
+        $counter = 0;
 
         while($tryAgain) {
             Nurse::resetSeq();
-            $period = new Period(35, $dateStart);
+            $date = $this->request->date;
+            $period = new Period((int) $date['days'], $date['startDate']);
 
-
-            $nurses = Nurse::getNurses();
+            $nurses = Nurse::getNurses(
+                $this->request->nurse['36'],
+                $this->request->nurse['32'],
+                $this->request->nurse['20']
+            );
 
             try {
                 $scheduler = new Scheduler($period, $nurses);
@@ -67,7 +44,10 @@ class IndexController extends BaseController
 
                 $tryAgain = false;
             } catch (Exception $ex) {
-
+                $counter++;
+                if ($counter > 500) {
+                    return $this->redirect("/?error=error");
+                }
             }
         }
 
