@@ -79,18 +79,29 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12" id="nurse-data">
                         {foreach $nurses as $nurse}
-                            {$nurse->id()}:
-                            {foreach $nurse->getShifts() as $shift}
-                                {$shift->getDateString()}
-                                {$shift->getType()}
-                                {if $shift->getDay()->isWeekend()}*{/if} ,<br/>
-                            {/foreach}
-                            <br/>
-                            <br/>
+                            <div class="col-lg-6 nurse-table">
+                                <h3>Grafik dla pielęgniarki nr: {$nurse->id()}</h3>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Typ</th>
+                                            <th>Weekend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach $nurse->getShifts() as $shift}
+                                            <tr>
+                                                <td>{$shift->getDateString()}</td>
+                                                <td>{$shift->getType()}</td>
+                                                <td>{if $shift->getDay()->isWeekend()}TAK{else}NIE{/if}</td>
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
                         {/foreach}
-                    </div>
                 </div>
             </div>
         </div>

@@ -20,6 +20,35 @@ class IndexController extends BaseController
 
     }
 
+    public function tableAction()
+    {
+        $dateStart = "2016-01-04";
+        $tryAgain = true;
+
+        while($tryAgain) {
+            Nurse::resetSeq();
+            $period = new Period(35, $dateStart);
+
+
+            $nurses = Nurse::getNurses();
+
+            try {
+                $scheduler = new Scheduler($period, $nurses);
+                $scheduler->schedule();
+
+                $tryAgain = false;
+            } catch (Exception $ex) {
+
+            }
+        }
+
+        $schedule = $scheduler->prepareForCalendar();
+
+        $this->view->schedule = $schedule;
+        $this->view->scheduleJson = json_encode($schedule);
+        $this->view->nurses = $scheduler->nurses;
+    }
+
     public function startAction()
     {
         $dateStart = "2016-01-04";
