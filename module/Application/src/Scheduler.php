@@ -229,6 +229,7 @@ class Scheduler
     {
         $schedule = array();
         $zmiany = 1;
+
         foreach ($this->nurses as $nurse) {
             $schedule[$nurse->id()] = array(
                 'nurse' => array(
@@ -244,7 +245,8 @@ class Scheduler
                     'id' => $k,
                     'startTime' => $shift->getDateString(),
                     'endTime'   => $shift->getDateEndString(),
-                    'summary'   => $shift->getType()
+                    'summary'   => $shift->getType(),
+                    'calendar'  => $shift->getType()
                 );
 
                 $zmiany++;

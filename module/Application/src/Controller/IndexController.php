@@ -77,6 +77,10 @@ class IndexController extends BaseController
         $this->view->scheduleJson = json_encode($schedule);
         $this->view->nurses = $scheduler->nurses;
 
+        $date = new \DateTime($this->request->date['startDate']);
+        $this->view->year  = $date->format('Y');
+        $this->view->month = $date->format('m');
+        $this->view->day   = $date->format('d');
     }
 
 

@@ -28,11 +28,14 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
         domConstruct.destroy('nurse-schedule-hello');
 
         calendar = new Calendar({
-            date: new Date(2016, 0, 10),
+            date: new Date({$year}, {$month-1}, {$day}),
             store: new Observable(new Memory({ data: schedule[nurseId].shifts })),
             dateInterval: "week",
             decodeDate: function(s) {
                     return new Date(s);
+            },
+            cssClassFunc: function(item){
+                return item.calendar;
             },
             columnViewProps: {
                 startTimeOfDay: {
@@ -128,4 +131,3 @@ require(["dojo/parser", "dojo/ready", "dojox/calendar/Calendar", "dojo/store/Obs
         </div>
     </div>
 </div>
-

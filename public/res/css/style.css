@@ -701,3 +701,80 @@ ul.funel-status-bar li span{
 }
 
 label.error { color: red; font-weight: 500; }
+
+
+.claro .dojoxCalendarEvent.Early .bg {
+  background-color: #2EAADD;
+}
+.claro .dojoxCalendarEvent.Early.Hovered .bg {
+  background-color: #2EAADD;
+}
+.claro .dojoxCalendarEvent.Early.Selected .bg {
+  background-color: #2EAADD;
+}
+.claro .dojoxCalendarEvent.Day .bg {
+  background-color: #FDCD07;
+}
+.claro .dojoxCalendarEvent.Day.Hovered .bg {
+  background-color: #FDCD07;
+}
+.claro .dojoxCalendarEvent.Day.Selected .bg {
+  background-color: #FDCD07;
+}
+.claro .dojoxCalendarEvent.Late .bg {
+  background-color: #69BD44;
+}
+.claro .dojoxCalendarEvent.Late.Hovered .bg {
+  background-color: #69BD44;
+}
+.claro .dojoxCalendarEvent.Late.Selected .bg {
+  background-color: #69BD44;
+}
+.claro .dojoxCalendarEvent.Night .bg {
+  background-color: #B9519E;
+}
+.claro .dojoxCalendarEvent.Night.Hovered .bg {
+  background-color: #B9519E;
+}
+.claro .dojoxCalendarEvent.Night.Selected .bg {
+  background-color: #B9519E;
+}
+.dojoxCalendarEvent.dojoxCalendarLabel.Early {
+    background-color: #2EAADD !important;
+    color: white !important;
+}
+
+.dojoxCalendarEvent.dojoxCalendarLabel.Day {
+    background-color: #FDCD07 !important;
+    color: white !important;
+}
+
+.dojoxCalendarEvent.dojoxCalendarLabel.Late {
+    background-color: #69BD44 !important;
+    color: white !important;
+}
+
+.dojoxCalendarEvent.dojoxCalendarLabel.Night {
+    background-color: #B9519E !important;
+    color: white !important;
+}
+
+.early .startTime {
+    background-color: #2EAADD !important;
+}
+
+.day .startTime {
+    background-color: #FDCD07 !important;
+}
+
+.late .startTime {
+    background-color: #69BD44 !important;
+}
+
+.night .startTime {
+    background-color: #B9519E !important;
+}
+
+.dojoxCalendarVertical .startTime {
+    background-color: #555555 !important;
+}
